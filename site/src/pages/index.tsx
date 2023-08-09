@@ -12,15 +12,51 @@ import { useState, useEffect } from "react";
 import { Inter } from 'next/font/google'
 import Button from '@/components/ConnectButton'
 const inter = Inter({ subsets: ['latin'] })
+import tokenContract from '../../ABIs/ERC721.json'
 
 export default function Home() {
-  const ERC721Address = "0x1B789b7016657bb6859803bAC1b67df5414AE8CE"
+
+
+  const ERC721Address = "0xcBd5310aed4D9f3bD43b053Ea4902Ad55e405230"
+  const contractConfig = {
+    addressOrName: ERC721Address,
+    contractInterface: tokenContract.abi,
+  };
+
+
+    const {
+      data: mintData,
+      write: buy,
+      isLoading: isMintLoading,
+      isSuccess: isMintStarted,
+      error: mintError,
+    } = useContractWrite({
+      address: ERC721Address,
+      abi: tokenContract.abi,
+      functionName: "mint",
+    }); 
+  
+    const mintToken = async () => {
+      try{
+      buy({args:["0x390be0D2Da9eDC0F85Ff09bfBFC874Bc8Ab665A6"]})
+      }catch(err){
+        window.alert(err)
+      }
+     
+    }
+
+
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
     >
       <div>
       <Button/>
+      <button
+      className="bg-gray-900 text-white hover:bg-gray-800 rounded-full px-12 py-2 sm:w-auto"
+      onClick={mintToken}>
+        Mint Token
+      </button>
       </div>
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
