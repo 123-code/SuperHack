@@ -18,7 +18,7 @@ import { infuraProvider } from 'wagmi/providers/infura'
 const { chains, publicClient } = configureChains(
   [mainnet, polygon, optimism, arbitrum,goerli],
   [
-    infuraProvider({ apiKey:'https://goerli.infura.io/v3/682c39bac1294baeb74ae767786db1ca'})
+    infuraProvider({ apiKey:'c24c8ebb1b7c447aa3e95e28e11e6532'})
   ]
 );
 
@@ -31,7 +31,7 @@ const { connectors } = getDefaultWallets({
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
-  publicClient
+  publicClient 
 })
 
 
