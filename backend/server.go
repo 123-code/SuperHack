@@ -13,11 +13,11 @@ func main(){
 	router := gin.Default()
 	router.Use(cors.Default())
 
-	
+
 
 	router.GET("/hello", func(c *gin.Context) {
 		c.String(200, "hello") 
-		database.Connect()
+		database.DBconnect()
 	  })
 	
 	  router.Run()

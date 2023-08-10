@@ -5,6 +5,7 @@ import (
 	"log"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"backend/data"
 	
 	//"os"
   )
