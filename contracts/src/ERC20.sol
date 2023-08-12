@@ -33,6 +33,8 @@ event Minted(address indexed to,uint256 amount);
      function GetPayzBalance(address account)public view returns(uint256){
             return balanceOf[account];
      }
-//Contract Address: 0xba70d4aebFeA45201b8916258475142A3065EeCD
+//Contract Address:  0x01b4867e43E558456bEeF249059298067a7f6068
 
 }
+
+
