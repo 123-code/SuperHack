@@ -13,7 +13,7 @@ interface IGovernance {
 
   function transfer(address to, uint256 amount) external returns (bool);
 
-  function mint(address to, uint256 amount) external;
+  function Mint(address to, uint256 amount) external;
 
   function name() external view returns (string memory);
 

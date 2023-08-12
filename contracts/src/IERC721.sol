@@ -9,4 +9,8 @@ interface IMyToken {
 
   function burn(uint _tokenID)external;
 
+  function balanceOf(address _owner) external view returns (uint256 balance);
+
+  function tokencount(address account) external view returns (uint);
+
 }

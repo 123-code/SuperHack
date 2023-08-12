@@ -1,19 +1,20 @@
 // SPDX-License-Identifier: MIT
+//import "@openzeppelin/contracts/access/Ownable.sol";
 pragma solidity ^ 0.8.18;
 
-contract Governance{
+contract Governance {
      uint256 public immutable supply = 200000;
      mapping(address=>uint256)public balanceOf;
      bytes32 public name = "Governance";
      bytes32 public Symbol = "GVT";
-     uint256 totalsupply;
+     uint256 public newsupply;
 
 
 event MoneyTransfer(address indexed from,address indexed to,uint256 amount);
 event Minted(address indexed to,uint256 amount);
 
         modifier SupplyNotExceeded(){
-            require(totalsupply + 1 <= supply);
+            require(newsupply + 1 <= supply);
             _;
         }
 
@@ -23,9 +24,10 @@ event Minted(address indexed to,uint256 amount);
           emit MoneyTransfer(msg.sender, _to, _amount);
      }
 
-     function Mint(address _to)public{
-         balanceOf[_to] +=1;
-         totalsupply += 1;
+     function Mint(address _to,uint256 amount)public SupplyNotExceeded{
+        
+         balanceOf[_to]+=amount;
+         newsupply+=amount;
      }
 
      function GetPayzBalance(address account)public view returns(uint256){

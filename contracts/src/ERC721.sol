@@ -19,8 +19,8 @@ event Burned(address indexed owner, uint256 indexed tokenId);
 
 /*
 
-*/
-function mint(address _to) external returns(uint){
+*/ 
+function mint(address _to) public returns(uint){
 _tokenIds.increment();
 uint newItemID = _tokenIds.current();
 _mint(_to,newItemID);
