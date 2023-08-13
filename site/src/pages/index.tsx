@@ -15,6 +15,7 @@ const inter = Inter({ subsets: ['latin'] })
 import tokenContract from '../../ABIs/ERC721.json'
 import erc20contract from '../../ABIs/ERC20.json'
 import MinterContract from '../../ABIs/Minter.json'
+import axios from 'axios'
 
 export default function Home() {
 
@@ -23,7 +24,30 @@ export default function Home() {
   const MinterAddress = "0x90300534Cd886E98537F770E8A0EAEDb78899ea6"
   const ERC20Address = "0x44754B7A75D005d8d341370e6D5473B17a5D04Ad"
   const { address, isConnecting, isDisconnected } = useAccount();
+  const [file, setFile] = useState();
   const [balance,setbalance] = useState(0);
+
+
+  const handleUpload = async () => {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const response = await axios.post('/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
+  
+ 
+
 
   const contractConfig = {
     addressOrName: ERC721Address,
@@ -65,6 +89,7 @@ export default function Home() {
     const mintToken = async () => {
       try{
       buy({args:[address]})
+      //window.alert("you have minted your token!");
       }catch(err){
         window.alert(err)
       }
@@ -75,65 +100,60 @@ export default function Home() {
     const Earn = async()=>{
       try{ 
         mintercontract()
-        
-        if(err){
-          window.alert(err)
-
-        }
-        else if(!err){
-          window.alert("success")
-        }
+        window.alert("minted 10 tokens per nft!")
+       
       }
       catch(err){}
-      window.alert(err)
+      console.error(err)
     }
 
 
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-       <Button/>
-       <button
+    <>
+          <button
       className="bg-gray-900 text-white hover:bg-gray-800 rounded-full px-12 py-2 "
       onClick={Earn}>
         Check For Earnings $
       </button>
+         
+       
+
       <button
       className="bg-gray-900 text-white hover:bg-gray-800 rounded-full px-12 py-2 "
       onClick={mintToken}>
         Mint Picture  📸
       </button>
+       <main
+      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
+    >
+      <h1>Pic4me</h1>
+       <Button/>
+
+         <div>
+   
+      </div>
+    
+   
        <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
      <h1> From Photo to NFT in seconds </h1>
      
-     
+    
       </div>
 
       <div>
      <h2> hobby & earn. </h2>
      </div>
-     
+     <div>
+  
+    </div>
 
       <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
  
 
       </div>
 
-     
-  
       <div>
 
-     
-
-    
-
-
-
-    <div>
-    <h1>3. </h1>
-    <h2> Earn </h2>
-    </div>
     
 <div>
 
@@ -156,5 +176,9 @@ export default function Home() {
 
      
     </main>
+    <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+      <button onClick={handleUpload}>Upload</button> 
+    </>
+ 
   )
 }
