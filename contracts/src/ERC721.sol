@@ -30,6 +30,12 @@ tokenids[newItemID] = msg.sender;
 return newItemID;
 }
 
+
+function getnftbalance(address _requester)public view returns(uint){
+    return balanceOf(_requester);
+}
+
+
 function TransferNFT(uint _tokenID,address _to) external{
     require(msg.sender == tokenids[_tokenID],"You Don't own this NFT");
     transferFrom(msg.sender,_to,_tokenID);

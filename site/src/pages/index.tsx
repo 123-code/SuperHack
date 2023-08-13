@@ -19,8 +19,9 @@ import MinterContract from '../../ABIs/Minter.json'
 export default function Home() {
 
   //const camera = 📸;
-  const ERC721Address = "0xcBd5310aed4D9f3bD43b053Ea4902Ad55e405230"
+  const ERC721Address = "0x6c2D9Cd8b9Bf1236cFe3a88daa7961238D00Ab31"
   const MinterAddress = "0x90300534Cd886E98537F770E8A0EAEDb78899ea6"
+  const ERC20Address = "0x44754B7A75D005d8d341370e6D5473B17a5D04Ad"
   const { address, isConnecting, isDisconnected } = useAccount();
   const [balance,setbalance] = useState(0);
 
@@ -50,25 +51,20 @@ export default function Home() {
       isSuccess: isStarted,
       error: err,
     } = useContractWrite({
-      address: MinterAddress,
-      abi: MinterContract.abi,
-      functionName: "mint",
+      address: ERC20Address,
+      abi: erc20contract.abi,
+      functionName: "claimtokens",
+      args:[address]
     }); 
 
 
-    const { data, isError, isLoading } = useContractRead({
-      address: '0x01b4867e43E558456bEeF249059298067a7f6068',
-      abi: erc20contract,
-      functionName: 'GetPayzBalance',
-      args: [address],
-    })
 
    
 
   
     const mintToken = async () => {
       try{
-      buy({args:["0x390be0D2Da9eDC0F85Ff09bfBFC874Bc8Ab665A6"]})
+      buy({args:[address]})
       }catch(err){
         window.alert(err)
       }
@@ -78,7 +74,8 @@ export default function Home() {
 
     const Earn = async()=>{
       try{ 
-        mintercontract({args:['0x01b4867e43E558456bEeF249059298067a7f6068','0x1B789b7016657bb6859803bAC1b67df5414AE8CE']})
+        mintercontract()
+        
         if(err){
           window.alert(err)
 
@@ -97,6 +94,16 @@ export default function Home() {
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
     >
        <Button/>
+       <button
+      className="bg-gray-900 text-white hover:bg-gray-800 rounded-full px-12 py-2 "
+      onClick={Earn}>
+        Check For Earnings $
+      </button>
+      <button
+      className="bg-gray-900 text-white hover:bg-gray-800 rounded-full px-12 py-2 "
+      onClick={mintToken}>
+        Mint Picture  📸
+      </button>
        <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
      <h1> From Photo to NFT in seconds </h1>
      
@@ -109,36 +116,27 @@ export default function Home() {
      
 
       <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <div>
-    <h1>1. </h1>
-     <h1> Drag & drop your photo below </h1>
-        </div>
+ 
 
       </div>
 
-
-     <div>
-    <h1>2. </h1>
-    <h2> click on Mint </h2>
-    </div>
+     
+  
       <div>
+
+     
+
+    
+
+
 
     <div>
     <h1>3. </h1>
     <h2> Earn </h2>
     </div>
-     
-      <button
-      className="bg-gray-900 text-white hover:bg-gray-800 rounded-full px-12 py-2 sm:w-auto"
-      onClick={mintToken}>
-        Mint Picture  📸
-      </button>
+    
 <div>
-<button
-      className="bg-gray-900 text-white hover:bg-gray-800 rounded-full px-12 py-2 sm:w-auto"
-      onClick={Earn}>
-        Check For Earnings $
-      </button>
+
 </div>
      
       </div>

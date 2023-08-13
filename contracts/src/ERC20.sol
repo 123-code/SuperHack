@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 //import "@openzeppelin/contracts/access/Ownable.sol";
-//0xcA2Cb0D411d524278eDbCf9869f4C1312fd248D2
+//0x9d7aDaE44f207B61Ea0aB2Ad0d6a8BB1e99a0d5C
 pragma solidity ^ 0.8.18;
 import"./IERC721.sol";
 
@@ -29,9 +29,9 @@ constructor(address _nftcontract){
 
 
 
-     function claimtokens()public{
-         address sender = msg.sender;
-         uint256 balance = nftcontract.balanceOf(sender);
+     function claimtokens(address _to)public{
+         //address sender = msg.sender;
+         uint256 balance = nftcontract.balanceOf(_to);
          uint256 amounttoclaim = 0;
 
          require(balance > 0,"you dont own any NFTs");
@@ -43,14 +43,19 @@ constructor(address _nftcontract){
              //nftcontract.tokenids[1]=true;
 
          } 
-         balanceOf[sender] += amounttoclaim*tokenspernft;
+         balanceOf[_to] += amounttoclaim*tokenspernft;
         
-        emit Minted(sender, amounttoclaim);
+        emit Minted(_to, amounttoclaim);
      }
 
+        function transfer(address _to,uint256 amount)public{
+            require(balanceOf[msg.sender]>=amount,"not enough tokens");
+            balanceOf[msg.sender] -= amount;
+            balanceOf[_to] += amount;
+        }
 
 
-//Contract Address: 0xba70d4aebFeA45201b8916258475142A3065EeCD
+
 receive() external payable{}
 fallback() external payable{}
 }
