@@ -13,5 +13,6 @@ interface IMyToken {
 
   function tokencount(address account) external view returns (uint);
 
+  function tokenids()external view returns(uint256);
+
 }
-//https://goerli.infura.io/v3/c24c8ebb1b7c447aa3e95e28e11e6532
